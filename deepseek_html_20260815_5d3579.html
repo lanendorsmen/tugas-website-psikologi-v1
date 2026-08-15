@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desa Rompu-Rompu - Resmi & Menarik</title>
+    <!-- Font Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- RESET & DASAR ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            background: #f9f6f0;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 46, 31, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(245, 197, 66, 0.2);
+            transition: 0.3s ease;
+        }
+
+        .navbar .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f5c542;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .navbar .logo span {
+            color: white;
+            font-weight: 400;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu li:hover,
+        .nav-menu li.active {
+            color: #f5c542;
+            border-bottom-color: #f5c542;
+        }
+
+        /* ---------- HERO (UNIFIED) ---------- */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 1.5s ease, transform 8s ease;
+            z-index: 1;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .hero-slide.active.zoom {
+            transform: scale(1.08);
+            transition: transform 8s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 40, 20, 0.5) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 0 20px;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .hero-content .badge {
+            display: inline-block;
+            background: rgba(245, 197, 66, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid #f5c542;
+            padding: 8px 28px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #f5c542;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 8vw, 5.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-content h1 .highlight {
+            color: #f5c542;
+        }
+
+        .hero-content .sub-title {
+            font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+            font-weight: 400;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .hero-content .typing-wrapper {
+            display: inline-block;
+            border-right: 3px solid #f5c542;
+            padding-right: 5px;
+            animation: blink 0.8s step-end infinite;
+            font-weight: 600;
+            color: #f5c542;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .hero-content p {
+            font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+            font-weight: 400;
+            margin: 20px auto 35px;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 1px;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #f5c542;
+            color: #1a2e1f;
+            border-color: #f5c542;
+            box-shadow: 0 10px 30px -8px rgba(245, 197, 66, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.03);
+            background: #ffe074;
+            border-color: #ffe074;
+            box-shadow: 0 18px 40px -8px rgba(245, 197, 66, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: white;
+            transform: translateY(-5px);
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            z-index: 15;
+            line-height: 0;
+        }
+        .hero-wave svg {
+            display: block;
+            width: 100%;
+            height: 80px;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- KONTEN UTAMA (per halaman) ---------- */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        .main-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #1a2e1f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .main-content .sub-heading {
+            text-align: center;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.4s ease;
+            border-bottom: 5px solid #f5c542;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .card h3 {
+            color: #1a2e1f;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+        }
+        .card p, .card li {
+            color: #555;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .card ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid #f0eee9;
+        }
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            border-left: 8px solid #f5c542;
+        }
+        .contact-info p {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .contact-info strong {
+            color: #1a2e1f;
+            min-width: 120px;
+        }
+        .contact-info a {
+            color: #1a2e1f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .contact-info a:hover {
+            color: #f5c542;
+        }
+        .social-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .social-links a {
+            background: #f5f3ef;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #1a2e1f;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            background: #f5c542;
+            color: #1a2e1f;
+            transform: scale(1.05);
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 12px 20px;
+                gap: 10px;
+            }
+            .nav-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-menu li {
+                font-size: 0.8rem;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-buttons .btn {
+                padding: 12px 28px;
+                font-size: 0.85rem;
+            }
+            .hero-wave svg {
+                height: 40px;
+            }
+            .main-content h2 {
+                font-size: 2rem;
+            }
+            .contact-info p {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar">
+        <a href="#" class="logo">Desa <span>Rompu-Rompu</span></a>
+        <ul class="nav-menu">
+            <li class="active" data-page="beranda">Beranda</li>
+            <li data-page="profil">Profil</li>
+            <li data-page="potensi">Potensi</li>
+            <li data-page="kontak">Kontak</li>
+        </ul>
+    </nav>
+
+    <!-- ========== HERO (UNIFIED - SAMA UNTUK SEMUA) ========== -->
+    <section class="hero" id="heroMain">
+        <!-- SLIDE 1 -->
+        <div class="hero-slide active zoom" style="background-image: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600');"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600');"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1600');"></div>
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1600');"></div>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content" id="heroContent">
+            <span class="badge" id="heroBadge">📍 Kec. Poleang Utara • Kab. Bombana</span>
+            <h1 id="heroTitle">
+                <span class="highlight">Desa Rompu-Rompu</span>
+            </h1>
+            <div class="sub-title" id="heroSub">Menjaga <span class="typing-wrapper" id="typingText">Harmoni Alam</span></div>
+            <p id="heroDesc">
+                Selamat datang di portal resmi Desa Rompu-Rompu. Temukan informasi terkini seputar pemerintahan, potensi desa, dan layanan masyarakat.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary" id="ctaUtama">🌿 Jelajahi Desa</a>
+                <a href="#" class="btn btn-secondary" id="ctaKedua">📞 Hubungi Kami</a>
+            </div>
+        </div>
+
+        <div class="hero-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0 C300,100 600,0 900,80 L1200,0 L1200,120 L0,120 Z" fill="#f9f6f0"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ========== KONTEN HALAMAN ========== -->
+    <!-- BERANDA -->
+    <div class="main-content active" id="page-beranda">
+        <h2>Selamat Datang di Desa Rompu-Rompu</h2>
+        <p class="sub-heading">
+            Desa yang terletak di Kecamatan Poleang Utara, Kabupaten Bombana, Sulawesi Tenggara. 
+            Kami mengedepankan gotong royong dan pelestarian budaya dalam membangun desa.
+        </p>
+        <div class="grid-2">
+            <div class="card">
+                <h3>📖 Sekilas Desa</h3>
+                <p>Rompu-Rompu merupakan desa dengan potensi pertanian dan perkebunan yang melimpah. Masyarakatnya hidup rukun dalam keberagaman, menjunjung tinggi adat dan tradisi leluhur.</p>
+            </div>
+            <div class="card">
+                <h3>🎯 Visi Desa</h3>
+                <p>"Terwujudnya Desa Rompu-Rompu yang Mandiri, Sejahtera, dan Berbudaya, berbasis pertanian berkelanjutan dan pariwisata alam."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFIL -->
+    <div class="main-content" id="page-profil">
+        <h2>Profil Desa</h2>
+        <p class="sub-heading">Mengenal lebih dekat sejarah, struktur, dan identitas Desa Rompu-Rompu.</p>
+        <div class="grid-2">
+            <div class="card">
+                <h3>📜 Sejarah</h3>
+                <p>Desa Rompu-Rompu berdiri sejak era kolonial dan terus berkembang hingga kini. Nama "Rompu-Rompu" berasal dari bahasa setempat yang berarti "tempat bertemunya air", merujuk pada sumber mata air yang melimpah di wilayah ini.</p>
+            </div>
+            <div class="card">
+                <h3>🏛️ Pemerintahan</h3>
+                <p>Desa Rompu-Rompu dipimpin oleh seorang Kepala Desa yang dibantu oleh perangkat desa dan Badan Permusyawaratan Desa (BPD) dalam menjalankan roda pemerintahan dan pembangunan.</p>
+            </div>
+            <div class="card">
+                <h3>🌏 Geografis</h3>
+                <p>Terletak di dataran rendah hingga perbukitan dengan luas wilayah sekitar 15 km². Berbatasan dengan hutan lindung di bagian utara dan kawasan pertanian di bagian selatan.</p>
+            </div>
+            <div class="card">
+                <h3>👨‍👩‍👧‍👦 Demografi</h3>
+                <p>Penduduk Desa Rompu-Rompu mayoritas bermatapencaharian sebagai petani, pekebun, dan nelayan. Kerukunan antarumat beragama dan antarsuku menjadi kekuatan sosial desa.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- POTENSI -->
+    <div class="main-content" id="page-potensi">
+        <h2>Potensi Desa</h2>
+        <p class="sub-heading">Kekayaan alam dan budaya yang menjadi kebanggaan masyarakat Rompu-Rompu.</p>
+        <div class="grid-2">
+            <div class="card">
+                <h3>🌾 Pertanian</h3>
+                <p>Lahan subur menghasilkan padi, jagung, dan kakao sebagai komoditas unggulan. Sistem pertanian terpadu mulai diterapkan untuk meningkatkan kesejahteraan petani.</p>
+            </div>
+            <div class="card">
+                <h3>🌴 Perkebunan</h3>
+                <p>Kelapa, cengkeh, dan kemiri menjadi andalan perkebunan rakyat yang telah diekspor ke luar daerah.</p>
+            </div>
+            <div class="card">
+                <h3>🏝️ Wisata Alam</h3>
+                <p>Keindahan perbukitan hijau, sungai jernih, dan kawasan pantai Bambaea yang berdekatan menawarkan potensi wisata yang sangat menjanjikan.</p>
+            </div>
+            <div class="card">
+                <h3>🎭 Budaya & Seni</h3>
+                <p>Tarian tradisional, musik khas, dan upacara adat masih lestari dan menjadi daya tarik tersendiri bagi pengunjung.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- KONTAK (DATA ASLI DARI WEBSITE) -->
+    <div class="main-content" id="page-kontak">
+        <h2>Hubungi Kami</h2>
+        <p class="sub-heading">Silakan sampaikan pesan, kritik, atau saran kepada pemerintah Desa Rompu-Rompu.</p>
+        
+        <div class="contact-info">
+            <p><strong>📍 Alamat Kantor :</strong> Jl. Poros Bambaea, Desa Rompu-Rompu, Kecamatan Poleang Utara, Kabupaten Bombana, Sulawesi Tenggara 93773</p>
+            <p><strong>📧 Email Resmi :</strong> <a href="mailto:desarompurompu@gmail.com">desarompurompu@gmail.com</a></p>
+            <p><strong>🌐 Media Sosial :</strong></p>
+            <div class="social-links">
+                <a href="#" target="_blank">📸 Instagram</a>
+                <a href="#" target="_blank">📘 Facebook</a>
+                <a href="#" target="_blank">🐦 Twitter</a>
+                <a href="#" target="_blank">📝 WordPress</a>
+            </div>
+            <!-- ========== PERUBAHAN ADA DI SINI ========== -->
+            <p style="margin-top:20px;">
+                <a href="https://maps.app.goo.gl/jq9PEtEGvRkSJCHU6" target="_blank" class="btn btn-secondary" style="display:inline-flex; background:rgba(26,46,31,0.08); color:#1a2e1f; border-color:#1a2e1f; backdrop-filter:none;">
+                    📍 Lihat Peta
+                </a>
+            </p>
+            <p style="margin-top:10px; font-size:0.9rem; color:#888;">
+                <em>Kami siap melayani Anda pada jam kerja: Senin – Jumat, 08.00 – 16.00 WITA.</em>
+            </p>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // ---------- 1. SLIDER HERO (SERAGAM) ----------
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function changeSlide() {
+                slides.forEach(slide => slide.classList.remove('active', 'zoom'));
+                currentSlide = (currentSlide + 1) % totalSlides;
+                slides[currentSlide].classList.add('active');
+                setTimeout(() => slides[currentSlide].classList.add('zoom'), 100);
+            }
+
+            let slideInterval = setInterval(changeSlide, 5000);
+            const hero = document.querySelector('.hero');
+            hero.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            hero.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(changeSlide, 5000);
+            });
+
+            // ---------- 2. TYPING EFFECT (SERAGAM) ----------
+            const typingElement = document.getElementById('typingText');
+            const textArray = [
+                'Harmoni Alam',
+                'Budaya Lestari',
+                'Pertanian Maju',
+                'Sulawesi Tenggara'
+            ];
+            let textIndex = 0, charIndex = 0, isDeleting = false;
+
+            function typeEffect() {
+                const currentText = textArray[textIndex];
+                typingElement.textContent = isDeleting ? 
+                    currentText.substring(0, charIndex - 1) : 
+                    currentText.substring(0, charIndex + 1);
+                
+                isDeleting ? charIndex-- : charIndex++;
+
+                let speed = 150;
+                if (isDeleting) speed = 80;
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    speed = 2000;
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % textArray.length;
+                    speed = 500;
+                }
+                setTimeout(typeEffect, speed);
+            }
+            typeEffect();
+
+            // ---------- 3. NAVIGASI (Hero berubah, konten berganti) ----------
+            const navItems = document.querySelectorAll('.nav-menu li');
+            const pages = {
+                beranda: {
+                    badge: '📍 Kec. Poleang Utara • Kab. Bombana',
+                    title: 'Desa Rompu-Rompu',
+                    sub: 'Menjaga Harmoni Alam',
+                    desc: 'Selamat datang di portal resmi Desa Rompu-Rompu. Temukan informasi terkini seputar pemerintahan, potensi desa, dan layanan masyarakat.',
+                    cta1: '🌿 Jelajahi Desa',
+                    cta2: '📞 Hubungi Kami'
+                },
+                profil: {
+                    badge: '📖 Mengenal Lebih Dekat',
+                    title: 'Profil Desa',
+                    sub: 'Sejarah & Identitas',
+                    desc: 'Pelajari sejarah, visi misi, dan struktur pemerintahan Desa Rompu-Rompu yang menjadi fondasi kemajuan desa.',
+                    cta1: '📜 Baca Sejarah',
+                    cta2: '🏛️ Struktur Desa'
+                },
+                potensi: {
+                    badge: '🌾 Kekayaan Lokal',
+                    title: 'Potensi Desa',
+                    sub: 'Alam & Budaya',
+                    desc: 'Dari pertanian, perkebunan, hingga wisata dan seni budaya — semua adalah potensi besar yang kami miliki.',
+                    cta1: '🌿 Eksplorasi',
+                    cta2: '🎭 Budaya'
+                },
+                kontak: {
+                    badge: '📬 Sampaikan Pesan',
+                    title: 'Hubungi Kami',
+                    sub: 'Kantor Desa Rompu-Rompu',
+                    desc: 'Silakan hubungi kami melalui alamat, email, atau media sosial resmi desa. Kami siap melayani Anda.',
+                    cta1: '📧 Kirim Email',
+                    cta2: '📍 Lihat Peta'
+                }
+            };
+
+            function setActivePage(pageId) {
+                // Update nav
+                navItems.forEach(item => item.classList.remove('active'));
+                document.querySelector(`.nav-menu li[data-page="${pageId}"]`).classList.add('active');
+
+                // Update konten utama
+                document.querySelectorAll('.main-content').forEach(el => el.classList.remove('active'));
+                const targetPage = document.getElementById(`page-${pageId}`);
+                if (targetPage) targetPage.classList.add('active');
+
+                // Update Hero (fungsi hero tetap sama, isi berubah)
+                const data = pages[pageId];
+                if (data) {
+                    document.getElementById('heroBadge').textContent = data.badge;
+                    document.getElementById('heroTitle').innerHTML = `<span class="highlight">${data.title}</span>`;
+                    document.getElementById('heroSub').innerHTML = `${data.sub}`;
+                    document.getElementById('heroDesc').textContent = data.desc;
+                    document.getElementById('ctaUtama').textContent = data.cta1;
+                    document.getElementById('ctaKedua').textContent = data.cta2;
+                }
+
+                // Scroll smooth ke hero
+                document.getElementById('heroMain').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const page = this.dataset.page;
+                    setActivePage(page);
+                });
+            });
+
+            // Tombol CTA kedua (Hubungi Kami) langsung ke halaman kontak
+            document.getElementById('ctaKedua').addEventListener('click', function(e) {
+                e.preventDefault();
+                setActivePage('kontak');
+            });
+            // Tombol CTA pertama (Jelajahi) ke beranda
+            document.getElementById('ctaUtama').addEventListener('click', function(e) {
+                e.preventDefault();
+                setActivePage('beranda');
+            });
+
+            // Set default ke beranda (sudah aktif)
+        });
+    </script>
+
+</body>
+</html>
